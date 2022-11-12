@@ -8,3 +8,12 @@
 .classpath
 .project
 /bin/
+
+# export file
+processMonitor.jar
+
+# exe4j file
+config.exe4j
+
+# exe file
+*.exe
