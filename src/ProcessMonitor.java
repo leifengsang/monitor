@@ -10,7 +10,7 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public class ProcessMonitor implements Runnable {
 
-	ApiService apiService;
+	private ApiService apiService;
 
 	public ProcessMonitor(ApiService apiService) {
 		super();
@@ -33,19 +33,19 @@ public class ProcessMonitor implements Runnable {
 				if (ArrayUtils.contains(processList, process)) {
 					gameProcessExists = true;
 				}
-				if (process.equals("obs.exe")) {
+				if (process.equals(Model.getInstance().getObsProcess())) {
 					obsProcessExists = true;
 				}
 			}
-			
+
 			//obs不在运行中，直接结束
-			if(!obsProcessExists){
+			if (!obsProcessExists) {
 				//TODO send close massage
 				apiService.close();
 			}
 			apiService.checkGameProcess(gameProcessExists);
 		} catch (IOException e) {
-			//TODO log
+			System.out.println("监听进程失败");
 			e.printStackTrace();
 		}
 	}

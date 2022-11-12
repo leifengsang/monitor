@@ -12,9 +12,8 @@ public class ApiService {
 		try {
 			wsClient = new MagicWebSocketClient(path, this);
 			wsClient.connect();
-			init();
 		} catch (Exception e) {
-			//TODO log
+			System.out.println("连接wsClient失败");
 			e.printStackTrace();
 		}
 	}
@@ -22,8 +21,29 @@ public class ApiService {
 	/**
 	 * 初始化：切换到普通表情
 	 */
-	private void init() {
+	public void init() {
 		changeExp(Model.EXP_NORMAL);
+	}
+
+	/**
+	 * 注册模型事件监听
+	 */
+	private void registerModelListener() {
+		JSONObject json = new JSONObject();
+		json.put("msg", 10000);
+		json.put("msgId", 1);
+		wsClient.send(json.toJSONString());
+	}
+
+	/**
+	 * 切换到下一个表情
+	 */
+	private void change2NextExp() {
+		JSONObject json = new JSONObject();
+		json.put("msg", 13301);
+		json.put("msgId", 1);
+		json.put("data", Model.getInstance().getModelId());
+		wsClient.send(json.toJSONString());
 	}
 
 	/**
@@ -36,13 +56,15 @@ public class ApiService {
 			return;
 		}
 
+		System.out.println("切换表情，id：" + exp);
+
 		Model.getInstance().setCurrentExp(exp);
 		JSONObject json = new JSONObject();
 		json.put("msg", 13300);
 		json.put("msgId", 1);
 		JSONObject data = new JSONObject();
 		data.put("id", Model.getInstance().getModelId());
-		data.put("expId", Model.getInstance().getExpName(exp));
+		data.put("expId", Model.getInstance().getExpId(exp));
 		json.put("data", data);
 		wsClient.send(json.toJSONString());
 	}
@@ -61,11 +83,11 @@ public class ApiService {
 	 * @param json
 	 */
 	public void processCallBack(JSONObject json) {
-
+		System.out.println("收到wsClient数据：" + json.toString());
 	}
 
 	public void close() {
-		//TODO log
+		System.out.println("开始关闭所有程序");
 		//干掉所有线程
 		SingleThreadPool.getInstance().close();
 

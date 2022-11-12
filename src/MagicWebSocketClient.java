@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class MagicWebSocketClient extends WebSocketClient {
 
-	ApiService apiService;
+	private ApiService apiService;
 
 	public MagicWebSocketClient(String serverUri, ApiService apiService) throws URISyntaxException {
 		super(new URI(serverUri));
@@ -24,13 +24,13 @@ public class MagicWebSocketClient extends WebSocketClient {
 		if (arg2) {
 			magiReconnect();
 		} else {
-			//TODO log
+			System.out.println("wsClient关闭");
 		}
 
 	}
 
 	public void onError(Exception e) {
-		//TODO log
+		System.out.println("wsClient onError");
 		e.printStackTrace();
 	}
 
@@ -39,7 +39,13 @@ public class MagicWebSocketClient extends WebSocketClient {
 	}
 
 	public void onOpen(ServerHandshake e) {
+		apiService.init();
+	}
 
+	@Override
+	public void send(String text) {
+		System.out.println("向wsClient发送数据：" + text);
+		super.send(text);
 	}
 
 	private void magiReconnect() {
@@ -51,10 +57,10 @@ public class MagicWebSocketClient extends WebSocketClient {
 					if (result) {
 						//TODO send reconnect massage
 					} else {
-						//TODO log
+						System.out.println("重连失败");
 					}
 				} catch (InterruptedException e) {
-					//TODO log
+					System.out.println("重连失败");
 					e.printStackTrace();
 				}
 			}

@@ -41,14 +41,14 @@ public class Model {
 	private String apiPath;
 
 	/**
-	 * 普通表情名称
+	 * 普通表情id
 	 */
-	private String normalExp;
+	private int normalExpId;
 
 	/**
-	 * 手柄表情名称
+	 * 手柄表情id
 	 */
-	private String ctrollerExp;
+	private int ctrollerExpId;
 
 	/**
 	 * modelId
@@ -61,6 +61,11 @@ public class Model {
 	private String[] processList;
 
 	/**
+	 * obs进程
+	 */
+	private String obsProcess;
+
+	/**
 	 * 当前表情
 	 */
 	private int currentExp;
@@ -69,12 +74,12 @@ public class Model {
 		return apiPath;
 	}
 
-	public String getNormalExp() {
-		return normalExp;
+	public int getNormalExpId() {
+		return normalExpId;
 	}
 
-	public String getCtrollerExp() {
-		return ctrollerExp;
+	public int getCtrollerExpId() {
+		return ctrollerExpId;
 	}
 
 	public int getModelId() {
@@ -83,6 +88,10 @@ public class Model {
 
 	public String[] getProcessList() {
 		return processList;
+	}
+
+	public String getObsProcess() {
+		return obsProcess;
 	}
 
 	public int getCurrentExp() {
@@ -100,20 +109,29 @@ public class Model {
 	public boolean load() {
 		JSONObject json = getConfigJson();
 		if (json == null) {
+			System.out.println("读取配置文件失败");
 			return false;
 		}
 
 		this.modelId = json.getIntValue("modelId");
 		this.apiPath = json.getString("path");
-		this.normalExp = json.getString("normalExp");
-		this.ctrollerExp = json.getString("ctrollerExp");
+		this.normalExpId = json.getIntValue("normalExpId");
+		this.ctrollerExpId = json.getIntValue("ctrollerExpId");
+		this.obsProcess = json.getString("obsProcess");
 		JSONArray jsonArray = json.getJSONArray("process");
 		String processList[] = null;
+		String log = "";
 		for (int i = 0; i < jsonArray.size(); i++) {
 			String process = (String) jsonArray.get(i);
 			processList = (String[]) ArrayUtils.add(processList, process);
+			log += process + "\n";
 		}
 		this.processList = processList;
+
+		System.out.println("加载配置文件成功");
+		System.out.println("api端口：" + apiPath);
+		System.out.println("模型id：" + modelId);
+		System.out.println("监听游戏进程：" + log);
 		return true;
 	}
 
@@ -155,18 +173,18 @@ public class Model {
 	}
 
 	/**
-	 * 获得表情名称
+	 * 获得表情id
 	 * @param exp
 	 * @return
 	 */
-	public String getExpName(int exp) {
+	public int getExpId(int exp) {
 		switch (exp) {
 		case EXP_NORMAL:
-			return normalExp;
+			return normalExpId;
 		case EXP_CTROLLER:
-			return ctrollerExp;
+			return ctrollerExpId;
 		default:
-			return "";
+			return -1;
 		}
 	}
 }

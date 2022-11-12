@@ -1,7 +1,8 @@
 {
   "path": "ws://127.0.0.1:10086/api",
-  "normalExp": "2",
-  "ctrollerExp": "1",
-  "modelId": "1",
-  "process":["ffxiv.exe", "obs.exe"]
+  "normalExpId": 1,
+  "ctrollerExpId": 0,
+  "modelId": 1,
+  "obsProcess": "obs64.exe",
+  "process": ["ffxiv_dx11.exe"]
 }
