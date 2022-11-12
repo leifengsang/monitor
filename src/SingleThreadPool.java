@@ -2,7 +2,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * Ïß³Ì³Ø
+ * çº¿ç¨‹æ± 
  * @author leifengsang
  */
 public class SingleThreadPool {
@@ -12,7 +12,7 @@ public class SingleThreadPool {
 	}
 
 	private SingleThreadPool() {
-		ses = Executors.newScheduledThreadPool(1);//¼àÌı½ø³ÌÏß³Ì
+		ses = Executors.newScheduledThreadPool(2);//ä¸€ä¸ªç»™webSocket ä¸€ä¸ªç»™ç›‘å¬è¿›ç¨‹
 	}
 
 	public static final SingleThreadPool getInstance() {
@@ -25,7 +25,7 @@ public class SingleThreadPool {
 		return ses;
 	}
 
-	// ¹Ø±ÕËùÓĞÏß³Ì
+	// å…³é—­æ‰€æœ‰çº¿ç¨‹
 	public void close() {
 		ses.shutdownNow();
 	}

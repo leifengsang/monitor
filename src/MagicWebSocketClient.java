@@ -1,6 +1,5 @@
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.Future;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -14,8 +13,6 @@ import com.alibaba.fastjson.JSONObject;
 public class MagicWebSocketClient extends WebSocketClient {
 
 	ApiService apiService;
-
-	Future future;
 
 	public MagicWebSocketClient(String serverUri, ApiService apiService) throws URISyntaxException {
 		super(new URI(serverUri));
@@ -42,12 +39,11 @@ public class MagicWebSocketClient extends WebSocketClient {
 	}
 
 	public void onOpen(ServerHandshake e) {
-		//好像没有握手的需求来着，等发的时候判断下要不要重连吧
+		//濂藉儚娌℃湁鎻℃墜鐨勯渶姹傛潵鐫�锛岀瓑鍙戠殑鏃跺�欏垽鏂笅瑕佷笉瑕侀噸杩炲惂
 	}
 
 	private void magiReconnect() {
-		future.cancel(true);
-		future = SingleThreadPool.getInstance().scheduledThreadPool().submit(new Runnable() {
+		SingleThreadPool.getInstance().scheduledThreadPool().submit(new Runnable() {
 
 			public void run() {
 				try {

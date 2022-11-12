@@ -7,42 +7,42 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * ÅäÖÃÎÄ¼ş¼¯ºÏ
+ * æ•°æ®é›†åˆ
  * @author leifengsang
  */
-public class ConfigUtil {
+public class Model {
 
 	/**
-	 * ÅäÖÃÎÄ¼şµØÖ·
+	 * é…ç½®æ–‡ä»¶è·¯å¾„Ö·
 	 */
 	public static final String CONFIG_PATH = "config.json";
 
-	private static ConfigUtil instance;
+	private static Model instance;
 
-	public static ConfigUtil getInstance() {
+	public static Model getInstance() {
 		if (instance == null) {
-			instance = new ConfigUtil();
+			instance = new Model();
 		}
 		return instance;
 	}
 
 	/**
-	 * apiÂ·¾¶
+	 * apiè·¯å¾„
 	 */
 	private String path;
 
 	/**
-	 * ÆÕÍ¨±íÇéÃû³Æ
+	 * æ™®é€šè¡¨æƒ…åç§°
 	 */
 	private String normalExp;
 
 	/**
-	 * ÊÖ±ú±íÇéÃû³Æ
+	 * æ‰‹æŸ„è¡¨æƒ…åç§°
 	 */
 	private String ctrollerExp;
 
 	/**
-	 * modelId ´Ó0¿ªÊ¼
+	 * modelId
 	 */
 	private int modelId;
 
@@ -79,7 +79,7 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * ¼ÓÔØÅäÖÃÎÄ¼ş
+	 * åŠ è½½é…ç½®
 	 * return success
 	 */
 	public boolean load() {
@@ -96,7 +96,7 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * ¶ÁÈ¡ÅäÖÃÎÄ¼ş
+	 * è¯»å–é…ç½®æ–‡ä»¶
 	 * @return
 	 */
 	public static JSONObject getConfigJson() {

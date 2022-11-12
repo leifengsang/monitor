@@ -20,14 +20,14 @@ public class ApiService {
 	}
 
 	/**
-	 * ³õÊ¼»¯£ºÇĞ»»µ½³£¹æ±íÇé
+	 * åˆå§‹åŒ–ï¼šåˆ‡æ¢åˆ°æ™®é€šè¡¨æƒ…
 	 */
 	private void init() {
 		
 	}
 
 	/**
-	 * ´¦Àí»Øµ÷
+	 * å¤„ç†å›è°ƒ
 	 * @param json
 	 */
 	public void processCallBack(JSONObject json) {
