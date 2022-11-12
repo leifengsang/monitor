@@ -12,10 +12,13 @@ public class ProcessMonitor implements Runnable {
 
 	private ApiService apiService;
 
-	public ProcessMonitor(ApiService apiService) {
+	private MagicTrayIcon trayIcon;
+
+	public ProcessMonitor(ApiService apiService, MagicTrayIcon trayIcon) {
 		super();
 
 		this.apiService = apiService;
+		this.trayIcon = trayIcon;
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class ProcessMonitor implements Runnable {
 
 			//obs不在运行中，直接结束
 			if (!obsProcessExists) {
-				//TODO send close massage
+				trayIcon.displayMassage("未检测到obs进程，程序结束");
 				apiService.close();
 			}
 			apiService.checkGameProcess(gameProcessExists);

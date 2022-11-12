@@ -55,7 +55,7 @@ public class MagicWebSocketClient extends WebSocketClient {
 				try {
 					boolean result = reconnectBlocking();
 					if (result) {
-						//TODO send reconnect massage
+						System.out.println("重连成功");
 					} else {
 						System.out.println("重连失败");
 					}

@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -6,9 +9,37 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class ApiService {
 
-	MagicWebSocketClient wsClient;
+	/**
+	 * wsClient
+	 */
+	private MagicWebSocketClient wsClient;
 
-	public ApiService(String path) {
+	/**
+	 * 系统托盘
+	 */
+	private MagicTrayIcon trayIcon;
+
+	public ApiService(String path, MagicTrayIcon trayIcon) {
+		this.trayIcon = trayIcon;
+
+		//重新加载配置文件
+		trayIcon.addMenuItem("reload", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Model.getInstance().load();
+			}
+		});
+
+		//退出
+		trayIcon.addMenuItem("exit", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				close();
+			}
+		});
+
 		try {
 			wsClient = new MagicWebSocketClient(path, this);
 			wsClient.connect();
@@ -22,28 +53,8 @@ public class ApiService {
 	 * 初始化：切换到普通表情
 	 */
 	public void init() {
+		trayIcon.displayMassage("初始化成功");
 		changeExp(Model.EXP_NORMAL);
-	}
-
-	/**
-	 * 注册模型事件监听
-	 */
-	private void registerModelListener() {
-		JSONObject json = new JSONObject();
-		json.put("msg", 10000);
-		json.put("msgId", 1);
-		wsClient.send(json.toJSONString());
-	}
-
-	/**
-	 * 切换到下一个表情
-	 */
-	private void change2NextExp() {
-		JSONObject json = new JSONObject();
-		json.put("msg", 13301);
-		json.put("msgId", 1);
-		json.put("data", Model.getInstance().getModelId());
-		wsClient.send(json.toJSONString());
 	}
 
 	/**
@@ -94,6 +105,10 @@ public class ApiService {
 		//干掉wsClient
 		if (wsClient != null) {
 			wsClient.close();
+		}
+		
+		if(trayIcon != null){
+			
 		}
 
 		System.exit(0);
