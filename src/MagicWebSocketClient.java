@@ -24,7 +24,7 @@ public class MagicWebSocketClient extends WebSocketClient {
 		if (arg2) {
 			magiReconnect();
 		} else {
-			//TODO send close message
+			//TODO log
 		}
 
 	}
