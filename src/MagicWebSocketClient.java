@@ -39,7 +39,7 @@ public class MagicWebSocketClient extends WebSocketClient {
 	}
 
 	public void onOpen(ServerHandshake e) {
-		//好像没有握手的需求来着，等发的时候判断下要不要重连吧
+
 	}
 
 	private void magiReconnect() {
