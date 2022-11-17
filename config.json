@@ -4,5 +4,5 @@
   "ctrollerExpId": 0,
   "modelId": 1,
   "obsProcess": "obs64.exe",
-  "process": ["ffxiv_dx11.exe"]
+  "process": ["ffxiv_dx11.exe", "P5R.exe", "Goose Goose Duck.exe"]
 }

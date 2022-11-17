@@ -32,7 +32,11 @@ public class ProcessMonitor implements Runnable {
 			boolean obsProcessExists = false;
 			boolean gameProcessExists = false;
 			while ((line = reader.readLine()) != null) {
-				String process = line.split(" ")[0]; //"只考虑xxx.exe"的进程
+				int index = line.indexOf(".exe");
+				if (index == -1) {
+					continue;
+				}
+				String process = line.substring(0, index + 4); //提取"xxx.exe"
 				if (ArrayUtils.contains(processList, process)) {
 					gameProcessExists = true;
 				}
